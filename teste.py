@@ -43,7 +43,8 @@ def pesquisar(Arquivo):
         todos_jogos = list(sheet.iter_rows(min_row=2, min_col=2, max_col=7))  # Carrega todos os jogos
 
         for linha in todos_jogos:
-            if linha[0].value and linha[0].value.lower() == nome_jogo:  # Se o valor da linha for igual ao nome do jogo
+#            if linha[0].value and linha[0].value.lower() == nome_jogo:  # Se o valor da linha for igual ao nome do jogo
+            if linha[0].value.lower() == nome_jogo:
                 jogos_encontrados.add(tuple(linha))  # Adiciona a linha no set
 
         if jogos_encontrados:  # Se algum jogo foi encontrado
