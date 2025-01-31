@@ -1,7 +1,7 @@
 import openpyxl # biblioteca para manipular arquivos xlsx (Excel)
 #from time import sleep  //Biblioteca usada para testes
 
-planilha = "Lista_Jogos.xlsx" # Variavel do caminho da planilha
+planilha = "InfoJogo.xlsx" # Variavel do caminho da planilha
 
 def pesquisar(Arquivo):
     #Abre o Arquivo
