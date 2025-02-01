@@ -1,10 +1,21 @@
 import customtkinter as ctk
+import main
 import json
 import os
 
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
+        self.info = { #Dicionario para salvar alguns dados
+            "Planilha": None, #Caminho da planilha
+            "Jogo": { #Dados do Jogo
+                "Nome": None, #Nome
+                "Ano": None, #Ano de Lançamento
+                "Desenvolvedor": None, #Desenvolvedor
+                "Plataforma": None #Plataforma
+            },
+            "Lista_Jogo": [] #Lista dos Jogos filtrados
+        }
 
         self.title("Jogo") #Titulo da Janela
         self.geometry("1080x720") #Tamanho da Janela
@@ -15,10 +26,10 @@ class App(ctk.CTk):
                 self.caminho = ctk.CTkInputDialog(text='Diretório da Planilha:') #Cria a janela de dialogo para o usuario digitar o caminho da planilha
                 self.caminho_input = self.caminho.get_input().replace('"', '') #Retira as aspas do caminho
                 if self.caminho_input != '' and os.path.exists(self.caminho_input): #Verifica se o caminho é valido
-                    self.info = {"Planilha": self.caminho_input} #Cria um dicionario com o caminho da planilha
+                    self.info["Planilha"] = self.caminho_input
 
                     with open("data.json", "w") as f: #Cria o arquivo data.json
-                        json.dump(self.info, f) #Escreve o caminho da planilha no arquivo
+                        json.dump(self.info, f, indent=2) #Escreve o caminho da planilha no arquivo
 
                     break #Sai do loop  
 
@@ -54,14 +65,25 @@ class App(ctk.CTk):
         self.grid_columnconfigure(3, weight=1)
 
         #Botão Buscar
-        self.botao = ctk.CTkButton(self, text="BUSCAR", width=150) #Cria o botao
+        self.botao = ctk.CTkButton(self, text="BUSCAR", width=150, command=self.procurar_jogo) #Cria o botao
         self.botao.grid(row=1, column=4, padx=5, pady=5) #Adiciona o botão
         self.grid_columnconfigure(4, weight=1)
 
         # Campo para exibir as informações dos jogos
         self.campo_texto = ctk.CTkTextbox(self, width=580, height=635)
-        self.campo_texto.grid(row=2, column=0, columnspan=3, padx=10, pady=5, sticky="w")
+        self.campo_texto.grid(row=2, column=0, columnspan=3, padx=10, pady=5, sticky="nsew")
         self.grid_rowconfigure(2, weight=1)
+
+    def procurar_jogo(self):
+#        print(self.info["Jogo"]["Nome"]) <-Print de teste
+#        print(self.nome_jogo.get()) <-Print de teste
+        self.info["Jogo"]["Nome"] = self.nome_jogo.get().lower() #O Nome do Jogo é guardado no dicionario
+        
+        with open("data.json", "w") as f: #Cria o arquivo data.json
+            json.dump(self.info, f, indent=2) #Salva o Nome no arquivo data.json
+        
+        main.procurar_jogo() #Executa a função procurar_jogo do Arquivo main.py
+
 
 app = App()
 app.mainloop()
