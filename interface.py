@@ -18,7 +18,7 @@ class App(ctk.CTk):
                 "Planilha": None, #Caminho da planilha
                 "Jogo": { #Dados do Jogo
                     "Nome": None, #Nome
-                    "Ano": None, #Ano de Lançamento
+                    "Ano": 0, #Ano de Lançamento
                     "Desenvolvedor": None, #Desenvolvedor
                     "Plataforma": None #Plataforma
                 },
@@ -44,7 +44,7 @@ class App(ctk.CTk):
             "Planilha": planilha["Planilha"], #Caminho da planilha
             "Jogo": { #Dados do Jogo
                 "Nome": None, #Nome
-                "Ano": None, #Ano de Lançamento
+                "Ano": 0, #Ano de Lançamento
                 "Desenvolvedor": None, #Desenvolvedor
                 "Plataforma": None #Plataforma
             },
@@ -87,24 +87,35 @@ class App(ctk.CTk):
         self.botao.grid(row=1, column=4, padx=5, pady=5) #Adiciona o botão
         self.grid_columnconfigure(4, weight=1)
 
-        # Campo para exibir as informações dos jogos
-        # self.campo_texto = ctk.CTkTextbox(self, width=580, height=635)
-        # self.campo_texto.grid(row=2, column=0, columnspan=3, padx=10, pady=5, sticky="nsew")
-        # self.grid_rowconfigure(2, weight=1)
-
         self.lista_jogo = CTkListbox(self, width=400, height=635)
         self.lista_jogo.grid(row=2, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
+        self.lista_jogo.bind("<<ListboxSelect>>", self.teste)
         self.grid_rowconfigure(2, weight=1)
 
     def procurar_jogo(self):
 #        print(self.info["Jogo"]["Nome"]) <-Print de teste
 #        print(self.nome_jogo.get()) <-Print de teste
+        self.info["Lista_Jogo"].clear()
         self.info["Jogo"]["Nome"] = self.nome_jogo.get().lower() #O Nome do Jogo é guardado no dicionario
         
         with open("data.json", "w") as f: #Cria o arquivo data.json
             json.dump(self.info, f, indent=2) #Salva o Nome no arquivo data.json
         
         main.procurar_jogo() #Executa a função procurar_jogo do Arquivo main.py
+
+        with open("data.json", "r") as f:
+            lista = json.load(f)
+            self.info["Lista_Jogo"].extend(lista["Lista_Jogo"])
+
+        self.lista_jogo.delete(0, ctk.END)
+
+        for jg in self.info["Lista_Jogo"]:
+            self.lista_jogo.insert(ctk.END, jg)
+
+    def teste(self):
+        print("Deu Certo... Eu Acho")
+
+        # print(self.info["Lista_Jogo"])
 
 
 app = App()
