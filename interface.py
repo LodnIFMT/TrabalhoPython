@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from CTkListbox import *
 import main
 import json
 import os
@@ -6,22 +7,24 @@ import os
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.info = { #Dicionario para salvar alguns dados
-            "Planilha": None, #Caminho da planilha
-            "Jogo": { #Dados do Jogo
-                "Nome": None, #Nome
-                "Ano": None, #Ano de Lançamento
-                "Desenvolvedor": None, #Desenvolvedor
-                "Plataforma": None #Plataforma
-            },
-            "Lista_Jogo": [] #Lista dos Jogos filtrados
-        }
 
         self.title("Jogo") #Titulo da Janela
         self.geometry("1080x720") #Tamanho da Janela
 
         # Verifica se o arquivo data.json existe
         if not os.path.exists("data.json"):
+
+            self.info = { #Dicionario para salvar alguns dados
+                "Planilha": None, #Caminho da planilha
+                "Jogo": { #Dados do Jogo
+                    "Nome": None, #Nome
+                    "Ano": None, #Ano de Lançamento
+                    "Desenvolvedor": None, #Desenvolvedor
+                    "Plataforma": None #Plataforma
+                },
+                "Lista_Jogo": [] #Lista dos Jogos filtrados
+            }
+
             while True:
                 self.caminho = ctk.CTkInputDialog(text='Diretório da Planilha:') #Cria a janela de dialogo para o usuario digitar o caminho da planilha
                 self.caminho_input = self.caminho.get_input().replace('"', '') #Retira as aspas do caminho
@@ -31,7 +34,22 @@ class App(ctk.CTk):
                     with open("data.json", "w") as f: #Cria o arquivo data.json
                         json.dump(self.info, f, indent=2) #Escreve o caminho da planilha no arquivo
 
-                    break #Sai do loop  
+                    break #Sai do loop
+
+        else:
+            with open("data.json", "r") as f:
+                planilha = json.load(f)
+
+            self.info = { #Dicionario para salvar alguns dados
+            "Planilha": planilha["Planilha"], #Caminho da planilha
+            "Jogo": { #Dados do Jogo
+                "Nome": None, #Nome
+                "Ano": None, #Ano de Lançamento
+                "Desenvolvedor": None, #Desenvolvedor
+                "Plataforma": None #Plataforma
+            },
+            "Lista_Jogo": [] #Lista dos Jogos filtrados
+        }
 
         #Area de Pesquisar o Jogo pelo Nome
         self.label = ctk.CTkLabel(self, text="Nome do Jogo",) #Label escrito, Nome do jogo
@@ -70,8 +88,12 @@ class App(ctk.CTk):
         self.grid_columnconfigure(4, weight=1)
 
         # Campo para exibir as informações dos jogos
-        self.campo_texto = ctk.CTkTextbox(self, width=580, height=635)
-        self.campo_texto.grid(row=2, column=0, columnspan=3, padx=10, pady=5, sticky="nsew")
+        # self.campo_texto = ctk.CTkTextbox(self, width=580, height=635)
+        # self.campo_texto.grid(row=2, column=0, columnspan=3, padx=10, pady=5, sticky="nsew")
+        # self.grid_rowconfigure(2, weight=1)
+
+        self.lista_jogo = CTkListbox(self, width=400, height=635)
+        self.lista_jogo.grid(row=2, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
         self.grid_rowconfigure(2, weight=1)
 
     def procurar_jogo(self):

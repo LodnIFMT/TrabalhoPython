@@ -22,13 +22,8 @@ def procurar_jogo(): #Função para prucurar o Jogo
                 if nome.lower() in str(linha[0].value).lower(): #se o nome fornecido pelo usuario estiver no nome da linha, faça:
                     jogos.append(str(linha[0].value).title()) #lista jogos receber o nome do jogo
 
-#        print(jogos) <- print de teste
+        print(jogos) #<- print de teste
     except FileNotFoundError: #caso não achar o Arquivo "data.json" faça os print a segui
         print('Arquivo "data.json" não encontrado ...')
         print('Planilha não encontrada ...')
         print('Criando arquivo "data.json ..."')
-
-    '''
-    Bug para resolver:
-    Toda Vez que reinicia o código, ele não encontra a planilha e o botão "BUSCAR" não funciona
-    '''
