@@ -11,6 +11,8 @@ class App(ctk.CTk):
         self.title("Jogo") #Titulo da Janela
         self.geometry("1080x720") #Tamanho da Janela
 
+        self.lista = []
+
         # Verifica se o arquivo data.json existe
         if not os.path.exists("data.json"):
 
@@ -21,8 +23,7 @@ class App(ctk.CTk):
                     "Ano": 0, #Ano de Lançamento
                     "Desenvolvedor": None, #Desenvolvedor
                     "Plataforma": None #Plataforma
-                },
-                "Lista_Jogo": [] #Lista dos Jogos filtrados
+                }
             }
 
             while True:
@@ -47,8 +48,7 @@ class App(ctk.CTk):
                 "Ano": 0, #Ano de Lançamento
                 "Desenvolvedor": None, #Desenvolvedor
                 "Plataforma": None #Plataforma
-            },
-            "Lista_Jogo": [] #Lista dos Jogos filtrados
+            }
         }
 
         #Area de Pesquisar o Jogo pelo Nome
@@ -95,27 +95,22 @@ class App(ctk.CTk):
     def procurar_jogo(self):
 #        print(self.info["Jogo"]["Nome"]) <-Print de teste
 #        print(self.nome_jogo.get()) <-Print de teste
-        self.info["Lista_Jogo"].clear()
+        self.lista.clear()
         self.info["Jogo"]["Nome"] = self.nome_jogo.get().lower() #O Nome do Jogo é guardado no dicionario
         
         with open("data.json", "w") as f: #Cria o arquivo data.json
             json.dump(self.info, f, indent=2) #Salva o Nome no arquivo data.json
         
-        main.procurar_jogo() #Executa a função procurar_jogo do Arquivo main.py
-
-        with open("data.json", "r") as f:
-            lista = json.load(f)
-            self.info["Lista_Jogo"].extend(lista["Lista_Jogo"])
+        self.lista.append(main.procurar_jogo()) #Executa a função procurar_jogo do Arquivo main.py
 
         self.lista_jogo.delete(0, ctk.END)
 
-        for jg in self.info["Lista_Jogo"]:
+        for jg in self.lista:
+            print(str(jg))
             self.lista_jogo.insert(ctk.END, jg)
 
     def teste(self):
         print("Deu Certo... Eu Acho")
-
-        # print(self.info["Lista_Jogo"])
 
 
 app = App()

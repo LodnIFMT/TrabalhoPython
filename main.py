@@ -19,9 +19,7 @@ def procurar_jogo(): #Função para prucurar o Jogo
 
                 jogos.append(linha[0].value) #Adiciona o nome do jogo na lista jogos
 
-        dados["Lista_Jogo"] = jogos
-        with open("data.json","w") as f:
-            json.dump(dados, f, indent=2)
+        return jogos
 
     except FileNotFoundError: #caso não achar o Arquivo "data.json" faça os print a segui
         print('Arquivo "data.json" não encontrado ...')
