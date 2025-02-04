@@ -13,19 +13,18 @@ class App(ctk.CTk):
 
         self.lista = []
 
+        self.info = { #Dicionario para salvar alguns dados
+            "Planilha": None, #Caminho da planilha
+            "Jogo": { #Dados do Jogo
+                "Nome": None, #Nome
+                "Ano": 0, #Ano de Lançamento
+                "Desenvolvedor": None, #Desenvolvedor
+                "Plataforma": None #Plataforma
+            }
+        }
+
         # Verifica se o arquivo data.json existe
         if not os.path.exists("data.json"):
-
-            self.info = { #Dicionario para salvar alguns dados
-                "Planilha": None, #Caminho da planilha
-                "Jogo": { #Dados do Jogo
-                    "Nome": None, #Nome
-                    "Ano": 0, #Ano de Lançamento
-                    "Desenvolvedor": None, #Desenvolvedor
-                    "Plataforma": None #Plataforma
-                }
-            }
-
             while True:
                 self.caminho = ctk.CTkInputDialog(text='Diretório da Planilha:') #Cria a janela de dialogo para o usuario digitar o caminho da planilha
                 self.caminho_input = self.caminho.get_input().replace('"', '') #Retira as aspas do caminho
@@ -41,15 +40,7 @@ class App(ctk.CTk):
             with open("data.json", "r") as f:
                 planilha = json.load(f)
 
-            self.info = { #Dicionario para salvar alguns dados
-            "Planilha": planilha["Planilha"], #Caminho da planilha
-            "Jogo": { #Dados do Jogo
-                "Nome": None, #Nome
-                "Ano": 0, #Ano de Lançamento
-                "Desenvolvedor": None, #Desenvolvedor
-                "Plataforma": None #Plataforma
-            }
-        }
+            self.info["Planilha"] = planilha["Planilha"]
 
         #Area de Pesquisar o Jogo pelo Nome
         self.label = ctk.CTkLabel(self, text="Nome do Jogo",) #Label escrito, Nome do jogo
@@ -93,20 +84,17 @@ class App(ctk.CTk):
         self.grid_rowconfigure(2, weight=1)
 
     def procurar_jogo(self):
-#        print(self.info["Jogo"]["Nome"]) <-Print de teste
-#        print(self.nome_jogo.get()) <-Print de teste
         self.lista.clear()
         self.info["Jogo"]["Nome"] = self.nome_jogo.get().lower() #O Nome do Jogo é guardado no dicionario
         
         with open("data.json", "w") as f: #Cria o arquivo data.json
             json.dump(self.info, f, indent=2) #Salva o Nome no arquivo data.json
         
-        self.lista.append(main.procurar_jogo()) #Executa a função procurar_jogo do Arquivo main.py
+        self.lista.extend(main.procurar_jogo()) #Executa a função procurar_jogo do Arquivo main.py
 
         self.lista_jogo.delete(0, ctk.END)
 
         for jg in self.lista:
-            print(str(jg))
             self.lista_jogo.insert(ctk.END, jg)
 
     def teste(self):

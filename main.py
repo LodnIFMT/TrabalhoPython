@@ -26,4 +26,4 @@ def procurar_jogo(): #Função para prucurar o Jogo
         print('Planilha não encontrada ...')
         print('Criando arquivo "data.json ..."')
 
-procurar_jogo()
+#procurar_jogo()
