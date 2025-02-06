@@ -95,7 +95,19 @@ class App(ctk.CTk):
         self.lista_jogo.delete(0, ctk.END)
 
         for jg in self.lista:
-            self.lista_jogo.insert(ctk.END, jg)
+            itens = self.lista_jogo.size()
+            
+            if itens < 20:
+                self.lista_jogo.insert(ctk.END, jg)
+            else:
+                break
+
+            if itens > 18:
+                self.botao_proximo = ctk.CTkButton(self, width=100, command=self.lista_jogo.delete(0, ctk.END))
+                self.botao_proximo.grid(row=3, column=1, padx=10, pady=5,)
+                self.grid_rowconfigure(3, weight=1)
+                self.grid_columnconfigure(1, weight=1)
+
 
     def teste(self):
         print("Deu Certo... Eu Acho")
