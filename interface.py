@@ -14,7 +14,6 @@ class App(ctk.CTk):
         self.title("Jogo") #Titulo da Janela
         self.geometry("1080x800") #Tamanho da Janela
 
-
         self.info = { #Dicionario para salvar alguns dados
             "Planilha": None, #Caminho da planilha
             "Jogo": { #Dados do Jogo
@@ -104,14 +103,28 @@ class App(ctk.CTk):
             else:
                 break
 
-            if itens > 18:
-                self.botao_proximo = ctk.CTkButton(self, text="PRÓXIMO",width=100, command=self.proximo)
-                self.botao_proximo.grid(row=3, column=1, padx=5, pady=5, sticky="new")
-                self.grid_rowconfigure(3, weight=100)
+        if len(self.lista) > 19:    
+            self.botao_proximo = ctk.CTkButton(self, text="PRÓXIMO",width=150, command=self.proximo)
+            self.botao_proximo.grid(row=3, column=1, padx=5, pady=5, sticky="ne")
+            self.grid_rowconfigure(3, weight=100)
+
+            self.botao_proximo = ctk.CTkButton(self, text="VOLTAR",width=150, command=self.voltar)
+            self.botao_proximo.grid(row=3, column=0, padx=5, pady=5, sticky="nw")
+            self.grid_rowconfigure(3, weight=100)
 
     def proximo(self):
         self.lista_jogo.delete(0, ctk.END)
-        self.indice = self.indice +21
+        self.indice = self.indice +20
+        for i in range(self.indice, self.indice + 20):
+            self.lista_jogo.insert(ctk.END, self.lista[i])
+    
+    def voltar(self):
+        self.lista_jogo.delete(0, ctk.END)
+        self.indice = self.indice -20
+        
+        if self.indice < 0:
+            self.indice = 0
+
         for i in range(self.indice, self.indice + 20):
             self.lista_jogo.insert(ctk.END, self.lista[i])
 
