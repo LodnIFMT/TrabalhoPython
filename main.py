@@ -27,3 +27,25 @@ def procurar_jogo(): #Função para prucurar o Jogo
         print('Criando arquivo "data.json ..."')
 
 #procurar_jogo()
+
+def botao_lista():
+    lista = ['iten 1', 'iten 2', 'iten 3', 'iten 4', 'iten 5', 'iten 6', 'inte 7']
+
+    indice = 0
+    while True:
+        print('1- Para próximo\n2- Para voltar')
+        esc = int(input('Digite: '))
+
+        if esc == 1:
+            for _ in range(2):
+                if indice < len(lista):
+                    print(lista[indice])
+                    indice = indice +1
+        else:
+            for _ in range(2):
+                if indice > 0:
+                    indice = indice -1
+                    print(lista[indice])
+    
+
+# botao_lista()

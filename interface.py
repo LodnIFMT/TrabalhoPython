@@ -8,10 +8,12 @@ class App(ctk.CTk):
     def __init__(self):
         super().__init__()
 
-        self.title("Jogo") #Titulo da Janela
-        self.geometry("1080x720") #Tamanho da Janela
-
         self.lista = []
+        self.indice = 0
+
+        self.title("Jogo") #Titulo da Janela
+        self.geometry("1080x800") #Tamanho da Janela
+
 
         self.info = { #Dicionario para salvar alguns dados
             "Planilha": None, #Caminho da planilha
@@ -46,7 +48,7 @@ class App(ctk.CTk):
         self.label = ctk.CTkLabel(self, text="Nome do Jogo",) #Label escrito, Nome do jogo
         self.nome_jogo = ctk.CTkEntry(self, placeholder_text="ex: Dragon Ball Z", width=550) #Campo para pesquisar o jogo
         self.label.grid(row=0, column=0, sticky="w", padx=12) #Insere a Label na janela
-        self.nome_jogo.grid(row=1, column=0, padx=10, pady=5, sticky="w") #Insere O Campo Para Digitar o nome do Jogo, na Janela
+        self.nome_jogo.grid(row=1, column=0, padx=10, pady=5, sticky="ew") #Insere O Campo Para Digitar o nome do Jogo, na Janela
         self.grid_columnconfigure(0, weight=2)
 
         #Area de Filtrar pelo Desenvolvedor
@@ -78,8 +80,8 @@ class App(ctk.CTk):
         self.botao.grid(row=1, column=4, padx=5, pady=5) #Adiciona o botão
         self.grid_columnconfigure(4, weight=1)
 
-        self.lista_jogo = CTkListbox(self, width=400, height=635)
-        self.lista_jogo.grid(row=2, column=0, columnspan=2, padx=10, pady=5, sticky="nsew")
+        self.lista_jogo = CTkListbox(self, width=400, height=650)
+        self.lista_jogo.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky="new")
         self.lista_jogo.bind("<<ListboxSelect>>", self.teste)
         self.grid_rowconfigure(2, weight=1)
 
@@ -103,11 +105,15 @@ class App(ctk.CTk):
                 break
 
             if itens > 18:
-                self.botao_proximo = ctk.CTkButton(self, width=100, command=self.lista_jogo.delete(0, ctk.END))
-                self.botao_proximo.grid(row=3, column=1, padx=10, pady=5,)
-                self.grid_rowconfigure(3, weight=1)
-                self.grid_columnconfigure(1, weight=1)
+                self.botao_proximo = ctk.CTkButton(self, text="PRÓXIMO",width=100, command=self.proximo)
+                self.botao_proximo.grid(row=3, column=1, padx=5, pady=5, sticky="new")
+                self.grid_rowconfigure(3, weight=100)
 
+    def proximo(self):
+        self.lista_jogo.delete(0, ctk.END)
+        self.indice = self.indice +21
+        for i in range(self.indice, self.indice + 20):
+            self.lista_jogo.insert(ctk.END, self.lista[i])
 
     def teste(self):
         print("Deu Certo... Eu Acho")
