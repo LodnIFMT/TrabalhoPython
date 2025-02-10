@@ -18,7 +18,7 @@ class App(ctk.CTk):
             "Planilha": None, #Caminho da planilha
             "Jogo": { #Dados do Jogo
                 "Nome": None, #Nome
-                "Ano": 0, #Ano de Lançamento
+                "Ano": None, #Ano de Lançamento
                 "Desenvolvedor": None, #Desenvolvedor
                 "Plataforma": None #Plataforma
             }
@@ -37,18 +37,18 @@ class App(ctk.CTk):
 
                     break #Sai do loop
 
-        else:
-            with open("data.json", "r") as f:
-                planilha = json.load(f)
+        else: #Caso Exista...
+            with open("data.json", "r") as f: #Abre o arquivo "data.json"
+                arquivo = json.load(f) #Recebe os dados do arquivo "data.json"
 
-            self.info["Planilha"] = planilha["Planilha"]
+            self.info["Planilha"] = arquivo["Planilha"] #O Dicionario "info" recebe o caminho da planilha na varivel "Planilha" 
 
         #Area de Pesquisar o Jogo pelo Nome
         self.label = ctk.CTkLabel(self, text="Nome do Jogo",) #Label escrito, Nome do jogo
         self.nome_jogo = ctk.CTkEntry(self, placeholder_text="ex: Dragon Ball Z", width=550) #Campo para pesquisar o jogo
         self.label.grid(row=0, column=0, sticky="w", padx=12) #Insere a Label na janela
         self.nome_jogo.grid(row=1, column=0, padx=10, pady=5, sticky="ew") #Insere O Campo Para Digitar o nome do Jogo, na Janela
-        self.grid_columnconfigure(0, weight=2)
+        self.grid_columnconfigure(0, weight=2) #Faz a coluna 0 ficar responsiva
 
         #Area de Filtrar pelo Desenvolvedor
         devs = main.Desenvolvedor()
@@ -57,7 +57,7 @@ class App(ctk.CTk):
         self.label_Dev.grid(row=0, column=1) #Insere a Label na janela
         self.opcao_devs.set("-----") #quando o usuario não seleciona a opção
         self.opcao_devs.grid(row=1, column=1, padx=5, pady=5) #Adiciona o Menu na Janela
-        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure(1, weight=1) #Faz a coluna 1 ficar responsiva
 
         #Area de filtrar por plataforma
         plataformas = main.plataforma()
@@ -66,31 +66,34 @@ class App(ctk.CTk):
         self.label_plataforma.grid(row=0, column=2) #Insere a Label na janela
         self.opcao_plataforma.set("-----") #quando o usuario não seleciona a opção
         self.opcao_plataforma.grid(row=1, column=2, padx=5, pady=5)#Adiciona o Menu a janeeal
-        self.grid_columnconfigure(2, weight=1)
+        self.grid_columnconfigure(2, weight=1) #Faz a coluna 2 ficar responsiva
 
         #Area de filtrar por Ano
+        anos = main.ano()
         self.label_ano = ctk.CTkLabel(self, text="Ano") #Label escrito, Ano
-        self.opcao_ano = ctk.CTkOptionMenu(self, values=["2000", "2001", "2002", "2003", "2004"], width=250,) #Menu de opções que lista todos os anos que tem na planilha
+        self.opcao_ano = ctk.CTkOptionMenu(self, values=anos, width=250,) #Menu de opções que lista todos os anos que tem na planilha
         self.label_ano.grid(row=0, column=3) #Insere a Label na janela
         self.opcao_ano.set("-----") #Fica Escrito, Ano, quando o usuario não seleciona a opção
         self.opcao_ano.grid(row=1, column=3, padx=5, pady=5) #Adiciona o Menu a janeeal
-        self.grid_columnconfigure(3, weight=1)
+        self.grid_columnconfigure(3, weight=1) #Faz a coluna 3 ficar responsiva
 
         #Botão Buscar
         self.botao = ctk.CTkButton(self, text="BUSCAR", width=150, command=self.procurar_jogo) #Cria o botao
         self.botao.grid(row=1, column=4, padx=5, pady=5) #Adiciona o botão
-        self.grid_columnconfigure(4, weight=1)
+        self.grid_columnconfigure(4, weight=1) #Faz a coluna 4 ficar responsiva
 
-        self.lista_jogo = CTkListbox(self, width=400, height=650)
-        self.lista_jogo.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky="new")
-        self.lista_jogo.bind("<<ListboxSelect>>", self.teste)
-        self.grid_rowconfigure(2, weight=1)
+        #Área que mostra a lista de jogos
+        self.lista_jogo = CTkListbox(self, width=400, height=650) #Area da Lista de Jogos
+        self.lista_jogo.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky="new") #Insere a Lista na Janela
+        self.lista_jogo.bind("<<ListboxSelect>>", self.teste) #Comando a executar quando o usuario seleciona um item da lista
+        self.grid_rowconfigure(2, weight=1) #Deixa a linha 2 responsiva
 
-
+    #Função para procura de jogos
     def procurar_jogo(self):
         self.lista.clear()
         self.info["Jogo"]["Nome"] = self.nome_jogo.get().lower() #O Nome do Jogo é guardado no dicionario
         
+        #Área para verificar se o usuario escolheu algum filtro
         if self.opcao_devs.get() != "-----":
             self.info["Jogo"]["Desenvolvedor"] = self.opcao_devs.get() #O Desenvolvedor é guardado no dicionario
 
@@ -98,7 +101,7 @@ class App(ctk.CTk):
             self.info["Jogo"]["Plataforma"] = self.opcao_plataforma.get() #A Plataforma é guardado no dicionario
 
         if self.opcao_ano.get() != "-----":
-            self.info["Jogo"]["Ano"] = int(self.opcao_ano.get()) #O Ano é guardado no dicionario
+            self.info["Jogo"]["Ano"] = (self.opcao_ano.get()) #O Ano é guardado no dicionario
         
         with open("data.json", "w") as f: #Cria o arquivo data.json
             json.dump(self.info, f, indent=2) #Salva o Nome no arquivo data.json

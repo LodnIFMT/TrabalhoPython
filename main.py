@@ -8,18 +8,21 @@ def procurar_jogo(): #Função para prucurar o Jogo
             planilha = dados["Planilha"] #Recebe o caminho da planilha
             jogo = dados["Jogo"] #Recebe informações do jogo
 
-        jogos = [] #Lista para receber a lista dos jogos filtrados
+        lista_jogos = [] #Lista para receber a lista dos jogos filtrados
 
         wb = openpyxl.load_workbook(planilha) #Abre o Arquivo Excel
         sheet= wb.active #Variavel que representa a planilha
 
         for linha in sheet.iter_rows(min_col=3, min_row=2, max_col=8, max_row=sheet.max_row): #Para cada linha na planilha faça:
-            if (jogo["Nome"] in str(linha[0].value).lower() if jogo["Nome"] else True) and (jogo["Desenvolvedor"].lower() in str(linha[5].value).lower() if jogo["Desenvolvedor"] else True) and (jogo["Plataforma"] in str(linha[1].value) if jogo["Plataforma"] else True) and (jogo["Ano"] == linha[2].value if jogo["Ano"] != 0 else True):
-                jogos.append(linha[0].value)
+            if (jogo["Nome"] in str(linha[0].value).lower() if jogo["Nome"] else True) and (jogo["Desenvolvedor"].lower() in str(linha[5].value).lower() if jogo["Desenvolvedor"] else True) and (jogo["Plataforma"] in str(linha[1].value) if jogo["Plataforma"] else True) and (str(jogo["Ano"]) in str(linha[2].value) if jogo["Ano"] else True):
+                lista_jogos.append(str(linha[0].value)) #Adiciona o nome do jogo na lista jogos
 
-                jogos.append(linha[0].value) #Adiciona o nome do jogo na lista jogos
+        jogos_set = sorted(set(lista_jogos))
+
+        jogos = []
+        for i in jogos_set:
+            jogos.append(i)
                 
-
         return jogos
 
     except FileNotFoundError: #caso não achar o Arquivo "data.json" faça os print a segui
@@ -37,19 +40,15 @@ def Desenvolvedor():
         wb = openpyxl.load_workbook(planilha)
         sheet = wb.active
 
-        devs = []
-
+        devs_planilha = []
         for linha in sheet.iter_rows(min_col=8, min_row=2, max_row=sheet.max_row):
-            dois_dv = str(linha[0].value).split('/')
-            if dois_dv:
-                for dv in dois_dv:
-                    if dv not in devs:
-                        devs.append(dv)
+            devs_planilha.extend(str(linha[0].value).split("/"))
 
+        devs_set = sorted(set(devs_planilha))
 
-        if (linha[0] not in devs) and ("/" not in linha[0].value):
-            devs.append(linha[0].value)
-            print(linha[0].value)
+        devs = []
+        for i in devs_set:
+            devs.append(i)
 
         return devs
     
@@ -66,27 +65,50 @@ def plataforma():
         wb = openpyxl.load_workbook(planilha)
         sheet = wb.active
 
-        pltf = []
-
+        pltf_planilha = []
         for linha in sheet.iter_rows(min_col=4, min_row=2, max_row=sheet.max_row):
-            dois_dv = str(linha[0].value).split('/')
-            if dois_dv:
-                for dv in dois_dv:
-                    if dv not in pltf:
-                        pltf.append(dv)
+            pltf_planilha.append(linha[0].value)
 
-        if (linha[0] not in pltf) and ("/" not in linha[0].value):
-            pltf.append(linha[0].value)
-            print(linha[0].value)
+        pltf_set = sorted(set(pltf_planilha))
+
+        pltf = []
+        for i in pltf_set:
+            pltf.append(i)
 
         return pltf
     
     except FileNotFoundError:
         print('Arquivo "data.json" não encontrado ...')
 
+def ano():
+    try:
+        with open("data.json", "r") as f:
+            dados = json.load(f)
+            planilha = dados["Planilha"]
+
+        wb = openpyxl.load_workbook(planilha)
+        sheet = wb.active
+        
+        anos_planilha = []
+        for linha in sheet.iter_rows(min_col=5, min_row=2, max_row=sheet.max_row):
+            anos_planilha.append(str(linha[0].value))
+        
+        anos_set = sorted(set(anos_planilha))
+        
+        anos = []
+        for i in anos_set:
+            anos.append(i)
+
+        return anos
+
+    except FileNotFoundError:
+        print('Arquivo "data.json" não encontrado ...')
 
 
-if __name__ == "__main__": #Executado apenas se o arquivo for executado diretamente, (Para Testes!)
+
+
+# if __name__ == "__main__": #Executado apenas se o arquivo for executado diretamente, (Para Testes!)
     #procurar_jogo()
     #Desenvolvedor()
-    plataforma()
+    #plataforma()
+    #ano()
