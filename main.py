@@ -18,6 +18,7 @@ def procurar_jogo(): #Função para prucurar o Jogo
                 jogos.append(linha[0].value)
 
                 jogos.append(linha[0].value) #Adiciona o nome do jogo na lista jogos
+                
 
         return jogos
 
@@ -26,26 +27,66 @@ def procurar_jogo(): #Função para prucurar o Jogo
         print('Planilha não encontrada ...')
         print('Criando arquivo "data.json ..."')
 
-#procurar_jogo()
-
-def botao_lista():
-    lista = ['iten 1', 'iten 2', 'iten 3', 'iten 4', 'iten 5', 'iten 6', 'inte 7']
-
-    indice = 0
-    while True:
-        print('1- Para próximo\n2- Para voltar')
-        esc = int(input('Digite: '))
-
-        if esc == 1:
-            for _ in range(2):
-                if indice < len(lista):
-                    print(lista[indice])
-                    indice = indice +1
-        else:
-            for _ in range(2):
-                if indice > 0:
-                    indice = indice -1
-                    print(lista[indice])
     
+def Desenvolvedor():
+    try:
+        with open("data.json", "r") as f:
+            dados = json.load(f)
+            planilha = dados["Planilha"]
+        
+        wb = openpyxl.load_workbook(planilha)
+        sheet = wb.active
 
-# botao_lista()
+        devs = []
+
+        for linha in sheet.iter_rows(min_col=8, min_row=2, max_row=sheet.max_row):
+            dois_dv = str(linha[0].value).split('/')
+            if dois_dv:
+                for dv in dois_dv:
+                    if dv not in devs:
+                        devs.append(dv)
+
+
+        if (linha[0] not in devs) and ("/" not in linha[0].value):
+            devs.append(linha[0].value)
+            print(linha[0].value)
+
+        return devs
+    
+    except FileNotFoundError:
+        print('Arquivo "data.json" não encontrado ...')
+
+
+def plataforma():
+    try:
+        with open("data.json", "r") as f:
+            dados = json.load(f)
+            planilha = dados["Planilha"]
+        
+        wb = openpyxl.load_workbook(planilha)
+        sheet = wb.active
+
+        pltf = []
+
+        for linha in sheet.iter_rows(min_col=4, min_row=2, max_row=sheet.max_row):
+            dois_dv = str(linha[0].value).split('/')
+            if dois_dv:
+                for dv in dois_dv:
+                    if dv not in pltf:
+                        pltf.append(dv)
+
+        if (linha[0] not in pltf) and ("/" not in linha[0].value):
+            pltf.append(linha[0].value)
+            print(linha[0].value)
+
+        return pltf
+    
+    except FileNotFoundError:
+        print('Arquivo "data.json" não encontrado ...')
+
+
+
+if __name__ == "__main__": #Executado apenas se o arquivo for executado diretamente, (Para Testes!)
+    #procurar_jogo()
+    #Desenvolvedor()
+    plataforma()
