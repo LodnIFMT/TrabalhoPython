@@ -42,8 +42,8 @@ The code uses the Ctklistbox graphical interface library, the game list library 
 
 Installation:
 
-  Install Visual Studio Code: “https://www.youtube.com/watch?v=FWnZBah0WLc”
-  Clone this repository: “https://www.youtube.com/watch?v=wJfFUsTjWAY”
+  Install Visual Studio Code: “ https://www.youtube.com/watch?v=FWnZBah0WLc ”
+  Clone this repository: “ https://www.youtube.com/watch?v=wJfFUsTjWAY ”
   Download the libraries:
     import customtkinter
     import pandas
