@@ -11,7 +11,7 @@ instalação:
     import json
     import openpyxl
 uso:
-000
+inicie o codigo com a entrada da planilha depois faca a utilizacao da aba nome para sua pesquisa e se nao souber o nome use os flitos como desenvolverdor , ano ,  consolo (nome do console esta simprificado).
 aplicabilidade :
   Utilizado em lojas de jogos para organização de inventário e/ou estoque com uso pessoal.
 
