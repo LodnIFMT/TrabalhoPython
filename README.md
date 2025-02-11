@@ -1,15 +1,15 @@
-Texto Versão Portugues 
+Texto Versão Português 
 
 Neste trabalho, utilizei  da linguagem de programação Python, um código focado em pesquisa de jogos da oitava geração até a sexta geração.
 
-Na utilização do código envolve o uso da biblioteca da interface gráfica Ctklistbox e biblioteca de lista de jogo disponibilizada na internet e biblioteca de uso de excel como  openpyxsl.
+Na utilização do código envolve o uso da biblioteca da interface gráfica CustomTkinter e biblioteca de lista de jogo disponibilizada na internet e biblioteca de uso de excel como  openpyxl.
 
 Instalação:
   instale o visualcode:  “ https://www.youtube.com/watch?v=FWnZBah0WLc ”
   clonar esse repositório: “https://www.youtube.com/watch?v=wJfFUsTjWAY"
   baixar as bibliotecas:
     import customtkinter
-    import pandas
+    import CTklistbox
     import json
     import openpyxl
 
@@ -42,7 +42,7 @@ Text Version Inglês
       
 In this project, I used the Python programming language to create a code focused on searching for games from the eighth generation down to the sixth generation.
 
-The code uses the Ctklistbox graphical interface library, the game list library available on the internet, and the Excel handling library such as openpyxl.
+The code uses the CustomTkinter graphical interface library, the game list library available on the internet, and the Excel handling library such as openpyxl.
 
 Installation:
 
@@ -50,7 +50,7 @@ Installation:
   Clone this repository: “ https://www.youtube.com/watch?v=wJfFUsTjWAY ”
   Download the libraries:
     import customtkinter
-    import pandas
+    import CTklistbox
     import json
     import openpyxl
 
