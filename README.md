@@ -2,7 +2,7 @@ Neste trabalho, utilizei  da linguagem de programação Python, um código focad
 
 Na utilização do código envolve o uso da biblioteca da interface gráfica Ctklistbox e biblioteca de lista de jogo disponibilizada na internet e biblioteca de uso de excel como  openpyxsl.
 
-instalação:
+Instalação:
   instale o visualcode:  “ https://www.youtube.com/watch?v=FWnZBah0WLc ”
   clonar esse repositório: “https://www.youtube.com/watch?v=wJfFUsTjWAY"
   baixar as bibliotecas:
@@ -11,12 +11,12 @@ instalação:
     import json
     import openpyxl
 
-uso:
+Uso:
 Para implementar o código conforme solicitado, começaremos com a entrada da planilha, buscando diretamente pelo nome do jogo e, caso o nome não seja conhecido, utilizaremos filtros como desenvolvedor, ano e console (simplificado) para realizar a pesquisa.
 aplicabilidade :
   Utilizado em lojas de jogos para organização de inventário e/ou estoque com uso pessoal.
 
-créditos: 
+Créditos: 
 
  Site da Planilha:
     https://gr.blade.sk/
@@ -35,4 +35,8 @@ créditos:
     wikipedia:
       https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal
 
+      
+In this project, I used the Python programming language to create a code focused on searching for games from the sixth generation.
+
+The code uses the Ctklistbox graphical interface library, the game list library available on the internet, and the Excel handling library such as openpyxl.
 
