@@ -1,6 +1,6 @@
 Texto Versão Portugues 
 
-Neste trabalho, utilizei  da linguagem de programação Python, um código focado em pesquisa de jogos da sexta geração.
+Neste trabalho, utilizei  da linguagem de programação Python, um código focado em pesquisa de jogos da oitava geração até a sexta geração.
 
 Na utilização do código envolve o uso da biblioteca da interface gráfica Ctklistbox e biblioteca de lista de jogo disponibilizada na internet e biblioteca de uso de excel como  openpyxsl.
 
@@ -31,7 +31,7 @@ Créditos:
     Reddit:
       https://www.reddit.com/r/ps2/comments/gfo13p/a_list_of_all_ps2_games_a_randomizer/?tl=pt-br
 
-  Explicação da Sexta Geração:
+  Explicação de Todas as Geraçoes:
     https://pt.wikipedia.org/wiki/Lista_de_consoles_de_jogos_eletr%C3%B4nicos#Sexta_gera%C3%A7%C3%A3o_(1998%E2%80%932006)
 
   Créditos:
@@ -40,7 +40,7 @@ Créditos:
 
 Text Version Inglês
       
-In this project, I used the Python programming language to create a code focused on searching for games from the sixth generation.
+In this project, I used the Python programming language to create a code focused on searching for games from the eighth generation down to the sixth generation.
 
 The code uses the Ctklistbox graphical interface library, the game list library available on the internet, and the Excel handling library such as openpyxl.
 
@@ -70,7 +70,7 @@ Credits:
   Credits: Reddit:
     https://www.reddit.com/r/ps2/comments/gfo13p/a_list_of_all_ps2_games_a_randomizer/?tl=pt-br
 
-  Explanation of the Sixth Generation: 
+  Explanation of All Generations: 
     https://pt.wikipedia.org/wiki/Lista_de_consoles_de_jogos_eletr%C3%B4nicos#Sexta_gera%C3%A7%C3%A3o_(1998%E2%80%932006)
   
 Credits: 
