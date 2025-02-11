@@ -40,3 +40,13 @@ In this project, I used the Python programming language to create a code focused
 
 The code uses the Ctklistbox graphical interface library, the game list library available on the internet, and the Excel handling library such as openpyxl.
 
+Installation:
+
+  Install Visual Studio Code: “https://www.youtube.com/watch?v=FWnZBah0WLc”
+  Clone this repository: “https://www.youtube.com/watch?v=wJfFUsTjWAY”
+  Download the libraries:
+    import customtkinter
+    import pandas
+    import json
+    import openpyxl
+
