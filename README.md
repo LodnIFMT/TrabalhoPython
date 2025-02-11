@@ -12,7 +12,7 @@ instalação:
     import openpyxl
 
 uso:
-inicie o codigo com a entrada da planilha depois faca a utilizacao da aba nome para sua pesquisa e se nao souber o nome use os flitos como desenvolverdor , ano ,  consolo (nome do console esta simprificado).
+Para implementar o código conforme solicitado, começaremos com a entrada da planilha, buscando diretamente pelo nome do jogo e, caso o nome não seja conhecido, utilizaremos filtros como desenvolvedor, ano e console (simplificado) para realizar a pesquisa.
 aplicabilidade :
   Utilizado em lojas de jogos para organização de inventário e/ou estoque com uso pessoal.
 
