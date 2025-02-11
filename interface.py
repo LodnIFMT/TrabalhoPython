@@ -85,7 +85,7 @@ class App(ctk.CTk):
         #Área que mostra a lista de jogos
         self.lista_jogo = CTkListbox(self, width=400, height=650) #Area da Lista de Jogos
         self.lista_jogo.grid(row=2, column=0, columnspan=2, padx=5, pady=5, sticky="new") #Insere a Lista na Janela
-        self.lista_jogo.bind("<<ListboxSelect>>", self.teste) #Comando a executar quando o usuario seleciona um item da lista
+        self.lista_jogo.bind("<<ListboxSelect>>", self.info) #Comando a executar quando o usuario seleciona um item da lista
         self.grid_rowconfigure(2, weight=1) #Deixa a linha 2 responsiva
 
     #Função para procura de jogos
@@ -118,14 +118,17 @@ class App(ctk.CTk):
             else:
                 break
 
-        if len(self.lista) > 19:
-            self.botao_proximo = ctk.CTkButton(self, text="PRÓXIMO",width=150, command=self.proximo)
-            self.botao_proximo.grid(row=3, column=1, padx=5, pady=5, sticky="ne")
-            self.grid_rowconfigure(3, weight=100)
+        self.botao_proximo = ctk.CTkButton(self, text="LIMPAR",width=100, command=self.limpar)
+        self.botao_proximo.grid(row=3, column=0, padx=5, pady=5, sticky="nw")
 
-            self.botao_proximo = ctk.CTkButton(self, text="VOLTAR",width=150, command=self.voltar)
-            self.botao_proximo.grid(row=3, column=0, padx=5, pady=5, sticky="nw")
-            self.grid_rowconfigure(3, weight=100)
+        if len(self.lista) > 19:
+            self.botao_proximo = ctk.CTkButton(self, text="VOLTAR",width=100, command=self.voltar)
+            self.botao_proximo.grid(row=3, column=0, padx=5, pady=5, sticky="ne")
+
+            self.botao_proximo = ctk.CTkButton(self, text="PROXIMO",width=100, command=self.proximo)
+            self.botao_proximo.grid(row=3, column=1, padx=5, pady=5, sticky="ne")
+        
+        self.grid_rowconfigure(3, weight=100)
 
 
     def proximo(self):
@@ -151,9 +154,24 @@ class App(ctk.CTk):
         for i in range(self.indice, self.indice + 20):
             self.lista_jogo.insert(ctk.END, self.lista[i])
 
+    def limpar(self):
+        self.info["Jogo"]["Nome"] = None
+        self.info["Jogo"]["Ano"] = None
+        self.info["Jogo"]["Desenvolvedor"] = None
+        self.info["Jogo"]["Plataforma"] = None
 
-    def teste(self):
-        print("Deu Certo... Eu Acho")
+        with open("data.json", "w") as f:
+            json.dump(self.info, f, indent=2)
+
+        self.nome_jogo.delete(0, ctk.END)
+        self.opcao_ano.set("-----")
+        self.opcao_devs.set("-----")
+        self.opcao_plataforma.set("-----")
+        self.lista_jogo.delete(0, ctk.END)
+
+    def info(self):
+        main.informacoes(self.lista_jogo.curselection())
+        
 
 
 app = App()
