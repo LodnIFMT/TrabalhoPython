@@ -36,6 +36,7 @@ Créditos:
     wikipedia:
       https://pt.wikipedia.org/wiki/Wikip%C3%A9dia:P%C3%A1gina_principal
 
+
       
 In this project, I used the Python programming language to create a code focused on searching for games from the sixth generation.
 
