@@ -10,6 +10,7 @@ instalação:
     import pandas
     import json
     import openpyxl
+
 uso:
 inicie o codigo com a entrada da planilha depois faca a utilizacao da aba nome para sua pesquisa e se nao souber o nome use os flitos como desenvolverdor , ano ,  consolo (nome do console esta simprificado).
 aplicabilidade :
