@@ -8,10 +8,12 @@ Instalação:
   instale o visualcode:  “ https://www.youtube.com/watch?v=FWnZBah0WLc ”
   clonar esse repositório: “https://www.youtube.com/watch?v=wJfFUsTjWAY"
   baixar as bibliotecas:
+  '''
     import customtkinter
     import CTklistbox
     import json
     import openpyxl
+  '''
 
 Uso:
 Para implementar o código conforme solicitado, começaremos com a entrada da planilha, buscando diretamente pelo nome do jogo e, caso o nome não seja conhecido, utilizaremos filtros como desenvolvedor, ano e console (simplificado) para realizar a pesquisa.
