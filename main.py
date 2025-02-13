@@ -113,19 +113,28 @@ def informacoes(jogo:str):
     wb = openpyxl.load_workbook(planilha)
     sheet = wb.active
 
+    info = {
+        "Nome": jogo,
+        "Desenvolvedor": [],
+        "Plataforma": [],
+        "Ano": []
+    }
+
     for linha in sheet.iter_rows(min_col=3, max_col=8, min_row=2, max_row=sheet.max_row):
         if linha[0].value == jogo:
-            dev = linha[5].value
-            plataforma = linha[1].value
-            ano = linha[2].value
-            reviw = linha[4].value 
-
-
+            # dev = str(linha[5].value).split("/")
+            info["Desenvolvedor"].append(str(linha[5].value).split('/')),
+            info["Plataforma"].append(linha[1].value),
+            info["Ano"].append(linha[2].value)
+    
+    arquivo["jg_info"] = info
+    with open("data.json", "w") as f:
+        json.dump(arquivo, f, indent=2)
 
 if __name__ == "__main__": #Executado apenas se o arquivo for executado diretamente, (Para Testes!)
-    jg = "Grand Theft Auto V"
-    #procurar_jogo()
-    #Desenvolvedor()
-    #plataforma()
-    #ano()
-    informacoes(jg)
+     jg = "Resident Evil 2"
+#     #procurar_jogo()
+#     #Desenvolvedor()
+#     #plataforma()
+#     #ano()
+     informacoes(jg)
