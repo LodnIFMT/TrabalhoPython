@@ -1,8 +1,8 @@
 import customtkinter as ctk
 from CTkListbox import *
 import main
-import json
-import os
+from json import load, dump
+from os import path
 
 class App(ctk.CTk):
     def __init__(self):
@@ -26,21 +26,21 @@ class App(ctk.CTk):
         }
 
         # Verifica se o arquivo data.json existe
-        if not os.path.exists("data.json"):
+        if not path.exists("data.json"):
             while True:
                 self.caminho = ctk.CTkInputDialog(text='Diretório da Planilha:') #Cria a janela de dialogo para o usuario digitar o caminho da planilha
                 self.caminho_input = self.caminho.get_input().replace('"', '') #Retira as aspas do caminho
-                if self.caminho_input != '' and os.path.exists(self.caminho_input): #Verifica se o caminho é valido
+                if self.caminho_input != '' and path.exists(self.caminho_input): #Verifica se o caminho é valido
                     self.info["Planilha"] = self.caminho_input
 
                     with open("data.json", "w") as f: #Cria o arquivo data.json
-                        json.dump(self.info, f, indent=2) #Escreve o caminho da planilha no arquivo
+                        dump(self.info, f, indent=2) #Escreve o caminho da planilha no arquivo
 
                     break #Sai do loop
 
         else: #Caso Exista...
             with open("data.json", "r") as f: #Abre o arquivo "data.json"
-                arquivo = json.load(f) #Recebe os dados do arquivo "data.json"
+                arquivo = load(f) #Recebe os dados do arquivo "data.json"
 
             self.info["Planilha"] = arquivo["Planilha"] #O Dicionario "info" recebe o caminho da planilha na varivel "Planilha" 
 
@@ -49,7 +49,6 @@ class App(ctk.CTk):
         self.nome_jogo = ctk.CTkEntry(self, placeholder_text="ex: Dragon Ball Z", width=395) #Campo para pesquisar o jogo
         self.label.grid(row=0, column=0, sticky="w", padx=12) #Insere a Label na janela
         self.nome_jogo.grid(row=1, column=0, padx=10, pady=5, sticky="we") #Insere O Campo Para Digitar o nome do Jogo, na Janela
-        # self.grid_columnconfigure(0, weight=2) #Faz a coluna 0 ficar responsiva
 
         #Area de Filtrar pelo Desenvolvedor
         devs = main.Desenvolvedor()
@@ -58,7 +57,6 @@ class App(ctk.CTk):
         self.opcao_devs.set("-----") #quando o usuario não seleciona a opção
         self.label_Dev.grid(row=0, column=1) #Insere a Label na janela
         self.opcao_devs.grid(row=1, column=1, padx=5, pady=5) #Adiciona o Menu na Janela
-        # self.grid_columnconfigure(1, weight=1) #Faz a coluna 1 ficar responsiva
 
         #Area de filtrar por plataforma
         plataformas = main.plataforma()
@@ -67,7 +65,6 @@ class App(ctk.CTk):
         self.opcao_plataforma.set("-----") #quando o usuario não seleciona a opção
         self.label_plataforma.grid(row=0, column=2) #Insere a Label na janela
         self.opcao_plataforma.grid(row=1, column=2, padx=5, pady=5)#Adiciona o Menu a janeeal
-        # self.grid_columnconfigure(2, weight=1) #Faz a coluna 2 ficar responsiva
 
         #Area de filtrar por Ano
         anos = main.ano()
@@ -76,18 +73,15 @@ class App(ctk.CTk):
         self.opcao_ano.set("-----") #Fica Escrito, Ano, quando o usuario não seleciona a opção
         self.label_ano.grid(row=0, column=3) #Insere a Label na janela
         self.opcao_ano.grid(row=1, column=3, padx=5, pady=5) #Adiciona o Menu a janeeal
-        # self.grid_columnconfigure(3, weight=1) #Faz a coluna 3 ficar responsiva
 
         #Botão Buscar
         self.botao = ctk.CTkButton(self, text="BUSCAR", width=90, command=self.procurar_jogo) #Cria o botao
         self.botao.grid(row=1, column=4, padx=5, pady=5) #Adiciona o botão
-        # self.grid_columnconfigure(4, weight=1) #Faz a coluna 4 ficar responsiva
 
         #Área que mostra a lista de jogos
         self.lista_jogo = CTkListbox(self, width=425, height=580) #Area da Lista de Jogos
         self.lista_jogo.grid(row=2, column=0, padx=5, pady=5, sticky="new") #Insere a Lista na Janela
         self.lista_jogo.bind("<<ListboxSelect>>", func=self.info_jg) #Comando a executar quando o usuario seleciona um item da lista
-        # self.grid_rowconfigure(2, weight=1) #Deixa a linha 2 responsiva
 
         #Area de Mostrar o resultado
         label_nome = ctk.CTkLabel(self, text="NOME:", width=10, font=("Arial", 15)).place(x=470, y=70) #Label escrito, NOME
@@ -97,8 +91,6 @@ class App(ctk.CTk):
         label_ano = ctk.CTkLabel(self, text="ANO DE LANÇAMENTO:", width=100, font=("Arial", 15)).place(x=470, y=260) #Label escrito, NOME #Label escrito, NOME
 
         label_plataforma = ctk.CTkLabel(self, text="PLATAFORMAS:", width=50, font=("Arial", 15)).place(x=950, y=150) #Label escrito, NOME
-
-
 
 
     #Função para procura de jogos
@@ -117,19 +109,9 @@ class App(ctk.CTk):
             self.info["Jogo"]["Ano"] = (self.opcao_ano.get()) #O Ano é guardado no dicionario
         
         with open("data.json", "w") as f: #Cria o arquivo data.json
-            json.dump(self.info, f, indent=2) #Salva o Nome no arquivo data.json
+            dump(self.info, f, indent=2) #Salva o Nome no arquivo data.json
         
-        self.lista.extend(main.procurar_jogo()) #Executa a função procurar_jogo do Arquivo main.py
-
-        self.lista_jogo.delete(0, ctk.END)
-
-        for jg in self.lista:
-            itens = self.lista_jogo.size()
-            
-            if itens < 20:
-                self.lista_jogo.insert(ctk.END, jg)
-            else:
-                break
+        self.lista.extend(main.procurar_jogo(self)) #Executa a função procurar_jogo do Arquivo main.py
 
         self.botao_proximo = ctk.CTkButton(self, text="LIMPAR",width=100, command=self.limpar).place(x=10, y=680)
 
@@ -138,51 +120,21 @@ class App(ctk.CTk):
 
             self.botao_proximo = ctk.CTkButton(self, text="VOLTAR",width=100, command=self.voltar).place(x=250, y=680)
 
-
     def proximo(self):
-        self.lista_jogo.delete(0, ctk.END)
-        self.indice = self.indice +20
-        
-        for i in range(self.indice, self.indice + 20):
-            if i < len(self.lista)-1:
-                self.lista_jogo.insert(ctk.END, self.lista[i])
-            else:
-                if self.indice < len(self.lista):
-                    self.lista_jogo.insert(ctk.END, self.lista[i])
-                self.indice = 0
-    
+        main.fun_proximo(self)
 
     def voltar(self):
-        self.lista_jogo.delete(0, ctk.END)
-        self.indice = self.indice -20
-        
-        if self.indice < 0:
-            self.indice = 0
-
-        for i in range(self.indice, self.indice + 20):
-            self.lista_jogo.insert(ctk.END, self.lista[i])
+        main.fun_voltar(self)
 
     def limpar(self):
-        self.info["Jogo"]["Nome"] = None
-        self.info["Jogo"]["Ano"] = None
-        self.info["Jogo"]["Desenvolvedor"] = None
-        self.info["Jogo"]["Plataforma"] = None
-
-        with open("data.json", "w") as f:
-            json.dump(self.info, f, indent=2)
-
-        self.nome_jogo.delete(0, ctk.END)
-        self.opcao_ano.set("-----")
-        self.opcao_devs.set("-----")
-        self.opcao_plataforma.set("-----")
-        self.lista_jogo.delete(0, ctk.END)
+        main.fun_limpar(self)
 
     def info_jg(self, event):
         jogo = self.lista_jogo.get(self.lista_jogo.curselection())
         main.informacoes(jogo)
 
         with open("data.json", "r") as f:
-            arquivo= json.load(f)
+            arquivo= load(f)
             info = arquivo["jg_info"]
 
         nome_jogo = ctk.CTkLabel(self, text=info["Nome"], width=50, font=("Arial", 20, "bold")).place(x=470, y=100)
@@ -193,7 +145,6 @@ class App(ctk.CTk):
 
         ano_jogo = ctk.CTkLabel(self, text=info["Ano"], width=50, font=("Arial", 20, "bold")).place(x=470, y=285)
 
-
-
 app = App()
 app.mainloop()
+    

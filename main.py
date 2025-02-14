@@ -2,7 +2,7 @@ import customtkinter as ctk
 import openpyxl
 import json
 
-def procurar_jogo(): #Função para prucurar o Jogo
+def procurar_jogo(app): #Função para prucurar o Jogo
     try: #Tenta executar o código
         with open("data.json", "r") as f: #Abre o arquivo "data.json"
             dados = json.load(f) #A Variavel dados recebe o dicionario do arquivo "data.json"
@@ -24,6 +24,16 @@ def procurar_jogo(): #Função para prucurar o Jogo
         for i in jogos_set:
             jogos.append(i)
                 
+        app.lista_jogo.delete(0, ctk.END)
+
+        for jg in jogos:
+            itens = app.lista_jogo.size()
+            
+            if itens < 20:
+                app.lista_jogo.insert(ctk.END, jg)
+            else:
+                break
+        
         return jogos
 
     except FileNotFoundError: #caso não achar o Arquivo "data.json" faça os print a segui
@@ -68,10 +78,6 @@ def bt_devs(jogo:str):
     for linha in sheet.iter_rows(min_col=3, max_col=8, min_row=2, max_row=sheet.max_row):
         if linha[0].value == jogo:
             devs.append(str(linha[5].value).split('/'))
-
-    # arquivo["devs"] = devs
-    # with open("data.json", "w") as f:
-    #     json.dump(arquivo, f, indent=2)
 
     return devs
 
@@ -123,7 +129,44 @@ def ano():
 
     except FileNotFoundError:
         print('Arquivo "data.json" não encontrado ...')
+
+def fun_proximo(app):
+    app.lista_jogo.delete(0, ctk.END)
+    app.indice = app.indice +20
+        
+    for i in range(app.indice, app.indice + 20):
+        if i < len(app.lista)-1:
+            app.lista_jogo.insert(ctk.END, app.lista[i])
+        else:
+            if app.indice < len(app.lista):
+                app.lista_jogo.insert(ctk.END, app.lista[i])
+                app.indice = 0
     
+def fun_voltar(app):
+    app.lista_jogo.delete(0, ctk.END)
+    app.indice = app.indice -20
+        
+    if app.indice < 0:
+        app.indice = 0
+
+    for i in range(app.indice, app.indice + 20):
+        app.lista_jogo.insert(ctk.END, app.lista[i])
+
+def fun_limpar(app):
+    app.info["Jogo"]["Nome"] = None
+    app.info["Jogo"]["Ano"] = None
+    app.info["Jogo"]["Desenvolvedor"] = None
+    app.info["Jogo"]["Plataforma"] = None
+
+    with open("data.json", "w") as f:
+        json.dump(app.info, f, indent=2)
+
+    app.nome_jogo.delete(0, ctk.END)
+    app.opcao_ano.set("-----")
+    app.opcao_devs.set("-----")
+    app.opcao_plataforma.set("-----")
+    app.lista_jogo.delete(0, ctk.END)
+
 def informacoes(jogo:str):
     with open("data.json", "r") as f:
         arquivo = json.load(f)
@@ -152,11 +195,3 @@ def informacoes(jogo:str):
     arquivo["jg_info"] = info
     with open("data.json", "w") as f:
         json.dump(arquivo, f, indent=2)
-
-if __name__ == "__main__": #Executado apenas se o arquivo for executado diretamente, (Para Testes!)
-     jg = "Resident Evil 2"
-#     #procurar_jogo()
-#     #Desenvolvedor()
-#     #plataforma()
-#     #ano()
-     informacoes(jg)
