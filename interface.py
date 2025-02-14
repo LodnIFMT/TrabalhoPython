@@ -12,8 +12,8 @@ class App(ctk.CTk):
         self.indice = 0
 
         self.title("Jogo") #Titulo da Janela
-        self.geometry("1080x800") #Tamanho da Janela
-        self.wm_minsize(width=1280, height=1010)
+        self.geometry("1080x720") #Tamanho da Janela
+        self.resizable(False, False) #Impede que a janela seja redimensionada
 
         self.info = { #Dicionario para salvar alguns dados
             "Planilha": None, #Caminho da planilha
@@ -46,70 +46,58 @@ class App(ctk.CTk):
 
         #Area de Pesquisar o Jogo pelo Nome
         self.label = ctk.CTkLabel(self, text="Nome do Jogo",) #Label escrito, Nome do jogo
-        self.nome_jogo = ctk.CTkEntry(self, placeholder_text="ex: Dragon Ball Z", width=550) #Campo para pesquisar o jogo
+        self.nome_jogo = ctk.CTkEntry(self, placeholder_text="ex: Dragon Ball Z", width=395) #Campo para pesquisar o jogo
         self.label.grid(row=0, column=0, sticky="w", padx=12) #Insere a Label na janela
-        self.nome_jogo.grid(row=1, column=0, padx=10, pady=5, sticky="ew") #Insere O Campo Para Digitar o nome do Jogo, na Janela
-        self.grid_columnconfigure(0, weight=2) #Faz a coluna 0 ficar responsiva
+        self.nome_jogo.grid(row=1, column=0, padx=10, pady=5, sticky="we") #Insere O Campo Para Digitar o nome do Jogo, na Janela
+        # self.grid_columnconfigure(0, weight=2) #Faz a coluna 0 ficar responsiva
 
         #Area de Filtrar pelo Desenvolvedor
         devs = main.Desenvolvedor()
         self.label_Dev = ctk.CTkLabel(self, text="Desenvolvedor") #Label escrito, Desenvolvedor
-        self.opcao_devs = ctk.CTkOptionMenu(self, values=devs, width=250) #Menu de opções, que lista todos os Desenvolvedores
-        self.label_Dev.grid(row=0, column=1) #Insere a Label na janela
+        self.opcao_devs = ctk.CTkOptionMenu(self, values=devs, width=195) #Menu de opções, que lista todos os Desenvolvedores
         self.opcao_devs.set("-----") #quando o usuario não seleciona a opção
+        self.label_Dev.grid(row=0, column=1) #Insere a Label na janela
         self.opcao_devs.grid(row=1, column=1, padx=5, pady=5) #Adiciona o Menu na Janela
-        self.grid_columnconfigure(1, weight=1) #Faz a coluna 1 ficar responsiva
+        # self.grid_columnconfigure(1, weight=1) #Faz a coluna 1 ficar responsiva
 
         #Area de filtrar por plataforma
         plataformas = main.plataforma()
         self.label_plataforma = ctk.CTkLabel(self, text="Plataforma") #Label escrito, Plataforma
-        self.opcao_plataforma = ctk.CTkOptionMenu(self, values=plataformas, width=250) #Menu de opçôes que lista todas as plataforma
-        self.label_plataforma.grid(row=0, column=2) #Insere a Label na janela
+        self.opcao_plataforma = ctk.CTkOptionMenu(self, values=plataformas, width=195) #Menu de opçôes que lista todas as plataforma
         self.opcao_plataforma.set("-----") #quando o usuario não seleciona a opção
+        self.label_plataforma.grid(row=0, column=2) #Insere a Label na janela
         self.opcao_plataforma.grid(row=1, column=2, padx=5, pady=5)#Adiciona o Menu a janeeal
-        self.grid_columnconfigure(2, weight=1) #Faz a coluna 2 ficar responsiva
+        # self.grid_columnconfigure(2, weight=1) #Faz a coluna 2 ficar responsiva
 
         #Area de filtrar por Ano
         anos = main.ano()
         self.label_ano = ctk.CTkLabel(self, text="Ano") #Label escrito, Ano
-        self.opcao_ano = ctk.CTkOptionMenu(self, values=anos, width=250,) #Menu de opções que lista todos os anos que tem na planilha
-        self.label_ano.grid(row=0, column=3) #Insere a Label na janela
+        self.opcao_ano = ctk.CTkOptionMenu(self, values=anos, width=100,) #Menu de opções que lista todos os anos que tem na planilha
         self.opcao_ano.set("-----") #Fica Escrito, Ano, quando o usuario não seleciona a opção
+        self.label_ano.grid(row=0, column=3) #Insere a Label na janela
         self.opcao_ano.grid(row=1, column=3, padx=5, pady=5) #Adiciona o Menu a janeeal
-        self.grid_columnconfigure(3, weight=1) #Faz a coluna 3 ficar responsiva
+        # self.grid_columnconfigure(3, weight=1) #Faz a coluna 3 ficar responsiva
 
         #Botão Buscar
-        self.botao = ctk.CTkButton(self, text="BUSCAR", width=150, command=self.procurar_jogo) #Cria o botao
+        self.botao = ctk.CTkButton(self, text="BUSCAR", width=90, command=self.procurar_jogo) #Cria o botao
         self.botao.grid(row=1, column=4, padx=5, pady=5) #Adiciona o botão
-        self.grid_columnconfigure(4, weight=1) #Faz a coluna 4 ficar responsiva
+        # self.grid_columnconfigure(4, weight=1) #Faz a coluna 4 ficar responsiva
 
         #Área que mostra a lista de jogos
-        self.lista_jogo = CTkListbox(self, width=400, height=650) #Area da Lista de Jogos
-        self.lista_jogo.grid(row=2, column=0, columnspan=2, rowspan=8, padx=5, pady=5, sticky="new") #Insere a Lista na Janela
+        self.lista_jogo = CTkListbox(self, width=425, height=580) #Area da Lista de Jogos
+        self.lista_jogo.grid(row=2, column=0, padx=5, pady=5, sticky="new") #Insere a Lista na Janela
         self.lista_jogo.bind("<<ListboxSelect>>", func=self.info_jg) #Comando a executar quando o usuario seleciona um item da lista
+        # self.grid_rowconfigure(2, weight=1) #Deixa a linha 2 responsiva
 
-        label_nome = ctk.CTkLabel(self, text="NOME:", width=50, font=("Arial", 15)) #Label escrito, NOME
-        label_nome.grid(row=2, column=2, padx=5, pady=1, sticky="nws") #Insere a Label na janela
-        self.grid_rowconfigure(2, weight=1) #Deixa a linha 2 responsiva
-
-        nome_jogo = ctk.CTkLabel(self, text="Dragon Ball Z: Budokai Tenkashin 3", width=150, font=("Arial", 20, "bold"))
-        nome_jogo.grid(row=3, column=2, columnspan=4 ,padx=5, pady=1, sticky="nw")
-        nome_jogo.grid_columnconfigure(2, weight=2000)
+        #Area de Mostrar o resultado
+        label_nome = ctk.CTkLabel(self, text="NOME:", width=10, font=("Arial", 15)).place(x=470, y=70) #Label escrito, NOME
         
-        label_desenvolvedor = ctk.CTkLabel(self, text="DESENVOLVEDOR:", width=50, font=("Arial", 15)) #Label escrito, NOME
-        label_desenvolvedor.grid(row=4, column=2,padx=5, pady=5, sticky="nw") #Insere a Label na janela
-        self.grid_rowconfigure(4, weight=1)
+        label_desenvolvedor = ctk.CTkLabel(self, text="DESENVOLVEDOR:", width=50, font=("Arial", 15)).place(x=470, y=150) #Label escrito, NOME
 
-        nome_jogo = ctk.CTkLabel(self, text="Dragon Ball Z: Budokai Tenkashin 3", width=150, font=("Arial", 20, "bold"))
-        nome_jogo.grid(row=5, column=2, columnspan=4 ,padx=5, pady=1, sticky="nw")
-        nome_jogo.grid_rowconfigure(2, weight=1)
-        
-        label_ano = ctk.CTkLabel(self, text="ANO DE LANÇAMENTO:", width=100, font=("Arial", 15)) #Label escrito, NOME
-        label_ano.grid(row=6, column=2, padx=5 ,pady=5, sticky="nw") #Insere a Label na janela
+        label_ano = ctk.CTkLabel(self, text="ANO DE LANÇAMENTO:", width=100, font=("Arial", 15)).place(x=470, y=260) #Label escrito, NOME #Label escrito, NOME
 
-        label_plataforma = ctk.CTkLabel(self, text="PLATAFORMAS:", width=50, font=("Arial", 15)) #Label escrito, NOME
-        label_plataforma.grid(row=6, column=3, columnspan=4, padx=15, pady=5, sticky="ne") #Insere a Label na janela
-        self.grid_rowconfigure(6, weight=35)
+        label_plataforma = ctk.CTkLabel(self, text="PLATAFORMAS:", width=50, font=("Arial", 15)).place(x=950, y=150) #Label escrito, NOME
+
 
 
 
@@ -143,17 +131,12 @@ class App(ctk.CTk):
             else:
                 break
 
-        self.botao_proximo = ctk.CTkButton(self, text="LIMPAR",width=100, command=self.limpar)
-        self.botao_proximo.grid(row=3, column=0, padx=5, pady=5, sticky="nw")
+        self.botao_proximo = ctk.CTkButton(self, text="LIMPAR",width=100, command=self.limpar).place(x=10, y=680)
 
         if len(self.lista) > 19:
-            self.botao_proximo = ctk.CTkButton(self, text="VOLTAR",width=100, command=self.voltar)
-            self.botao_proximo.grid(row=3, column=0, padx=5, pady=5, sticky="ne")
+            self.botao_proximo = ctk.CTkButton(self, text="PROXIMO",width=100, command=self.proximo).place(x=360, y=680)
 
-            self.botao_proximo = ctk.CTkButton(self, text="PROXIMO",width=100, command=self.proximo)
-            self.botao_proximo.grid(row=3, column=1, padx=5, pady=5, sticky="ne")
-        
-        self.grid_rowconfigure(3, weight=100)
+            self.botao_proximo = ctk.CTkButton(self, text="VOLTAR",width=100, command=self.voltar).place(x=250, y=680)
 
 
     def proximo(self):
@@ -197,7 +180,20 @@ class App(ctk.CTk):
     def info_jg(self, event):
         jogo = self.lista_jogo.get(self.lista_jogo.curselection())
         main.informacoes(jogo)
-        print("teste")
+
+        with open("data.json", "r") as f:
+            arquivo= json.load(f)
+            info = arquivo["jg_info"]
+
+        nome_jogo = ctk.CTkLabel(self, text=info["Nome"], width=50, font=("Arial", 20, "bold")).place(x=470, y=100)
+
+        Desevolvedor_jg = ctk.CTkOptionMenu(self, values=info["Desenvolvedor"], width=70).place(x=470, y=185)
+
+        plataforma_lista = ctk.CTkOptionMenu(self, values=info["Plataforma"], width=70).place(x=950, y=185)
+
+        ano_jogo = ctk.CTkLabel(self, text=info["Ano"], width=50, font=("Arial", 20, "bold")).place(x=470, y=285)
+
+
 
 app = App()
 app.mainloop()

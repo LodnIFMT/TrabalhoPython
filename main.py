@@ -56,6 +56,25 @@ def Desenvolvedor():
     except FileNotFoundError:
         print('Arquivo "data.json" não encontrado ...')
 
+def bt_devs(jogo:str):
+    with open("data.json", "r") as f:
+        arquivo = json.load(f)
+        planilha = arquivo["Planilha"]
+
+    wb = openpyxl.load_workbook(planilha)
+    sheet = wb.active
+
+    devs = []
+    for linha in sheet.iter_rows(min_col=3, max_col=8, min_row=2, max_row=sheet.max_row):
+        if linha[0].value == jogo:
+            devs.append(str(linha[5].value).split('/'))
+
+    # arquivo["devs"] = devs
+    # with open("data.json", "w") as f:
+    #     json.dump(arquivo, f, indent=2)
+
+    return devs
+
 
 def plataforma():
     try:
@@ -115,18 +134,21 @@ def informacoes(jogo:str):
 
     info = {
         "Nome": jogo,
-        "Desenvolvedor": [],
-        "Plataforma": [],
-        "Ano": []
+        "Plataforma":[],
+        "Desenvolvedor":[],
+        "Ano":None
     }
 
+    ano =[]
     for linha in sheet.iter_rows(min_col=3, max_col=8, min_row=2, max_row=sheet.max_row):
         if linha[0].value == jogo:
-            # dev = str(linha[5].value).split("/")
-            info["Desenvolvedor"].append(str(linha[5].value).split('/')),
-            info["Plataforma"].append(linha[1].value),
-            info["Ano"].append(linha[2].value)
+            info["Plataforma"].append(linha[1].value)
+            info["Desenvolvedor"].append(str(linha[5].value))
+            ano.append(linha[2].value)
     
+    ano.sort()
+    info["Ano"] = str(ano[0])
+
     arquivo["jg_info"] = info
     with open("data.json", "w") as f:
         json.dump(arquivo, f, indent=2)
