@@ -18,7 +18,7 @@ Uso:
 Para implementar o código conforme solicitado, começaremos com a entrada da planilha, buscando diretamente pelo nome do jogo e, caso o nome não seja conhecido, utilizaremos filtros como desenvolvedor, ano e console (simplificado) para realizar a pesquisa.
 
 Aplicabilidade :
-  Utilizado em lojas de jogos para organização de inventário e/ou estoque com uso pessoal.
+  Utilizado em lojas de jogos para organização de inventário e/ou estoque com uso pessoal. Pode ser adaptával para lojas de estoque.
 
 Créditos: 
 
@@ -60,7 +60,7 @@ Usage:
   To implement the code as requested, we start by loading the spreadsheet, searching directly for the game name, and if the name is unknown, we use filters like developer, year, and console (simplified) to perform the search.
 
 Applicability:
-  This can be used in game stores for organizing inventory and/or stock for personal use.
+  This can be used in game stores for organizing inventory and/or stock for personal use. Can be adaptable for stock stores.
   
 Credits:
   Spreadsheet Source: 
