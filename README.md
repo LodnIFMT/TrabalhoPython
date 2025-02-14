@@ -5,13 +5,12 @@ Neste trabalho, utilizei  da linguagem de programação Python, um código focad
 Na utilização do código envolve o uso da biblioteca da interface gráfica CustomTkinter e biblioteca de lista de jogo disponibilizada na internet e biblioteca de uso de excel como  openpyxl.
 
 Instalação:
-  instale o visualcode:  “ https://www.youtube.com/watch?v=FWnZBah0WLc ”
-  clonar esse repositório: “https://www.youtube.com/watch?v=wJfFUsTjWAY"
-  baixar as bibliotecas:
+  1. instale o visualcode:  “ https://www.youtube.com/watch?v=FWnZBah0WLc ”
+  1. clonar esse repositório: “https://www.youtube.com/watch?v=wJfFUsTjWAY"
+  1. baixar as bibliotecas:
   ~~~
     pip install customtkinter
     pip install CTklistbox
-    pip install json
     pip install openpyxl
   ~~~
 
@@ -48,13 +47,12 @@ The code uses the CustomTkinter graphical interface library, the game list libra
 
 Installation:
 
-  Install Visual Studio Code: “ https://www.youtube.com/watch?v=FWnZBah0WLc ”
-  Clone this repository: “ https://www.youtube.com/watch?v=wJfFUsTjWAY ”
-  Download the libraries:
+  1. Install Visual Studio Code: “ https://www.youtube.com/watch?v=FWnZBah0WLc ”
+  2. Clone this repository: “ https://www.youtube.com/watch?v=wJfFUsTjWAY ”
+  3. Download the libraries:
   ~~~
     pip install customtkinter
     pip install CTklistbox
-    pip install json
     pip install openpyxl
   ~~~
 
