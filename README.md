@@ -8,10 +8,12 @@ Instalação:
   instale o visualcode:  “ https://www.youtube.com/watch?v=FWnZBah0WLc ”
   clonar esse repositório: “https://www.youtube.com/watch?v=wJfFUsTjWAY"
   baixar as bibliotecas:
-    import customtkinter
-    import CTklistbox
-    import json
-    import openpyxl
+  ~~~
+    pip install customtkinter
+    pip install CTklistbox
+    pip install json
+    pip install openpyxl
+  ~~~
 
 Uso:
 Para implementar o código conforme solicitado, começaremos com a entrada da planilha, buscando diretamente pelo nome do jogo e, caso o nome não seja conhecido, utilizaremos filtros como desenvolvedor, ano e console (simplificado) para realizar a pesquisa.
@@ -49,10 +51,12 @@ Installation:
   Install Visual Studio Code: “ https://www.youtube.com/watch?v=FWnZBah0WLc ”
   Clone this repository: “ https://www.youtube.com/watch?v=wJfFUsTjWAY ”
   Download the libraries:
-    import customtkinter
-    import CTklistbox
-    import json
-    import openpyxl
+  ~~~
+    pip install customtkinter
+    pip install CTklistbox
+    pip install json
+    pip install openpyxl
+  ~~~
 
 Usage:
   To implement the code as requested, we start by loading the spreadsheet, searching directly for the game name, and if the name is unknown, we use filters like developer, year, and console (simplified) to perform the search.
